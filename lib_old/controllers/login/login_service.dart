@@ -1,12 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:yamaha_auth_module/models/login_response_data.dart';
-import 'package:yamaha_auth_module/utils/helpers/api_main_constants.dart';
-import 'package:yamaha_auth_module/utils/helpers/authentication_repository.dart';
-import 'package:yamaha_auth_module/utils/popups/loaders.dart';
-import 'package:yamaha_auth_module/utils/text_strings.dart';
+import '../../models/login_response_data.dart';
+import '../../utils/helpers/api_main_constants.dart';
+import '../../utils/helpers/authentication_repository.dart';
 
 class LoginService {
   Future performLoginRequest(String email, String password) async {
@@ -39,10 +36,7 @@ class LoginService {
       AuthenticationRepository.instance.saveData(
           JPapiMainConstants.firstConnexionDateKey,
           firstConnexionDate.toString());
-    } else {
-      return JPLoaders.errorSnackBar(
-          title: JPTexts.loginErrorMessageTitle,
-          message: JPTexts.loginErrorMessage);
+      return token;
     }
 
     /* // Todo: 
@@ -53,6 +47,6 @@ class LoginService {
     //     firstConnexionDate.toString());
 
     // return Get.offAll(() => const HomePage());
-    return SystemNavigator.pop(animated: true);
+    return null;
   }
 }

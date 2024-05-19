@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yamaha_auth_module/utils/popups/loaders.dart';
-import 'package:yamaha_auth_module/utils/text_strings.dart';
 
 class NetworkManager extends GetxController {
   static NetworkManager get instance => Get.find();
@@ -24,11 +22,6 @@ class NetworkManager extends GetxController {
 
   Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
     _connectivityStatus.value = result[0];
-    if (_connectivityStatus.value == ConnectivityResult.none) {
-      JPLoaders.warningSnackBar(
-          title: JPTexts.youAreCurrentlyOffline,
-          message: JPTexts.checkInternetConnection);
-    }
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.

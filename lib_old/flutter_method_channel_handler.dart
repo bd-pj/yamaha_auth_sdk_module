@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:yamaha_auth_module/controllers/login/login_controller.dart';
+import 'controllers/login/login_controller.dart';
 
 class FlutterMethodChannelHandler {
   static const MethodChannel _channel =
-      MethodChannel('com.example.yamaha/auth');
+      MethodChannel('com.example.yamaha_auth_module');
 
   static void setUpMethodChannel() {
     _channel.setMethodCallHandler(_handleMethodCall);
@@ -15,8 +15,13 @@ class FlutterMethodChannelHandler {
       case 'login':
         final String email = call.arguments['email'];
         final String password = call.arguments['password'];
-        await Get.put(LoginController()).login();
-        return "Login process initiated";
+
+        final token = await Get.put(LoginController()).login();
+        return token;
+      case 'localAuth':
+        final token =
+            await Get.put(LoginController()).authenticateWithLocalAuth();
+        return token;
     }
   }
 }

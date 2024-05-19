@@ -21,8 +21,8 @@ class LocalAuthService extends GetxController {
         ),
       );
       _isAuthenticating.value = false;
-    } on PlatformException catch (error) {
-      print(error);
+    } on PlatformException catch (e) {
+      print(e);
       _isAuthenticating.value = false;
     }
 

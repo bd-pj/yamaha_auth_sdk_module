@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import 'package:yamaha_auth_module/utils/bindings/general_bindings.dart';
-import 'package:yamaha_auth_module/utils/helpers/api_main_constants.dart';
-import 'package:yamaha_auth_module/utils/helpers/authentication_repository.dart';
-import 'package:yamaha_auth_module/utils/theme/theme.dart';
-import 'package:yamaha_auth_module/views/login/local_auth_page.dart';
-import 'package:yamaha_auth_module/views/login/login_page.dart';
+
+import 'flutter_method_channel_handler.dart';
+import 'utils/bindings/general_bindings.dart';
+import 'utils/helpers/api_main_constants.dart';
+import 'utils/helpers/authentication_repository.dart';
+import 'utils/theme/theme.dart';
+import 'views/login/local_auth_page.dart';
+import 'views/login/login_page.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   State<App> createState() => _AppState();
 }
 
@@ -23,7 +25,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    FlutterNativeSplash.remove();
+    FlutterMethodChannelHandler.setUpMethodChannel();
   }
 
   bool isFirstConnexion() {
@@ -36,18 +38,21 @@ class _AppState extends State<App> {
     if (firstConnexionDateString == null ||
         now.difference(DateTime.parse(firstConnexionDateString)).inMinutes >=
             JPapiMainConstants.tokenLifetime) {
+      print("true");
       return true;
     }
-
+    print("false");
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Building");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBindings(),
+      initialRoute: "/",
       home: isFirstConnexion() ? const LoginPage() : const LocalAuthPage(),
     );
   }

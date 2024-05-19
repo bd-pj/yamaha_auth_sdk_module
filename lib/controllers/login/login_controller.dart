@@ -1,47 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yamaha_auth_module/controllers/login/login_service.dart';
-import 'package:yamaha_auth_module/utils/helpers/api_main_constants.dart';
-import 'package:yamaha_auth_module/utils/helpers/authentication_repository.dart';
 import 'package:yamaha_auth_module/utils/helpers/local_auth_service.dart';
+import 'package:yamaha_auth_module/utils/helpers/network_manager.dart';
+import 'package:yamaha_auth_module/utils/popups/loaders.dart';
+import 'package:yamaha_auth_module/utils/text_strings.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
 
   final hidePassword = true.obs;
-
+  final email = TextEditingController();
+  final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   final loginService = LoginService();
 
-  Future<void> login(String emailStr, String passwordStr) async {
+  Future<void> login() async {
     try {
-      final token = loginService.performLoginRequest(emailStr, passwordStr);
+      // Check Internet Connectivity
+      final isConnectivity = await NetworkManager.instance.initConnectivity();
 
-      return token;
+      if (!isConnectivity) {
+        JPLoaders.warningSnackBar(
+            title: JPTexts.youAreCurrentlyOffline,
+            message: JPTexts.checkInternetConnection);
+        return;
+      }
+
+      if (!loginFormKey.currentState!.validate()) return;
+
+      if (loginFormKey.currentState!.validate()) {
+        loginService.performLoginRequest(email.text, password.text);
+      }
+
+      return;
+    } catch (e) {
+      JPLoaders.errorSnackBar(title: 'Oops !!!', message: e.toString());
     } finally {}
   }
 
-  Future<dynamic> authenticateWithLocalAuth() async {
+  Future<void> authenticateWithLocalAuth() async {
     final isAuthenticated = await LocalAuthService.instance.isAuthenticated();
-    try {
-      final firstConnexionDate = AuthenticationRepository()
-          .readData(JPapiMainConstants.firstConnexionDateKey);
-      DateTime currentDate = DateTime.now();
-      DateTime parsedFirstConnexionDate = DateTime.parse(firstConnexionDate);
-      Duration difference = currentDate.difference(parsedFirstConnexionDate);
-      if (difference.inMinutes > JPapiMainConstants.tokenLifetime) {
-        return "authentication expired";
-      } else {
-        if (!isAuthenticated) {
-          return "authentication not done";
-        }
-        final token =
-            AuthenticationRepository().readData(JPapiMainConstants.tokenAuth);
-        return token;
-      }
-    } catch (e) {
-      return null;
+    if (isAuthenticated) {
+      // return Get.offAll(() => const HomePage());
+      return SystemNavigator.pop(animated: true);
     }
   }
 }
