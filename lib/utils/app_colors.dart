@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class JPAppColors {
   static Color color_1 = const Color(0xFF3CB2E0);
+  static Color color_2 = const Color(0xFFEBF7FB);
 
   static Color background = const Color(0xFFF9F6EE);
 

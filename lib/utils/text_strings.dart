@@ -28,6 +28,12 @@ class JPTexts {
   static const String loginTitle = "Sign in!";
   static const String localAuthLoginTitle = "Welcome back!";
 
+  static const String loginDialogTitle = "Choose your preferences!";
+  static const String loginDialogMessage =
+      "Would you like to use biometric authentication next time?";
+  static const String yes = "Yes";
+  static const String no = "No";
+
   static const String accountName_1 = "Google: codingiscool@gmail.com";
   static const String accountName_2 = "Personal website: hello@joe-pierre.com";
   static const String accountName_3 = "Twitter: @PLYNTHIOU";

@@ -28,4 +28,16 @@ class LocalAuthService extends GetxController {
 
     return authenticated;
   }
+
+  Future<bool> isLocalAuthenticationAvailable() async {
+    final bool canAuthenticateWithBiometrics = await _auth.canCheckBiometrics;
+    final bool canAuthenticate =
+        canAuthenticateWithBiometrics || await _auth.isDeviceSupported();
+
+    if (canAuthenticate) {
+      return true;
+    }
+
+    return false;
+  }
 }
