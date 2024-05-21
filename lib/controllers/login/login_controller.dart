@@ -6,6 +6,7 @@ import 'package:yamaha_auth_module/utils/helpers/local_auth_service.dart';
 import 'package:yamaha_auth_module/utils/helpers/network_manager.dart';
 import 'package:yamaha_auth_module/utils/popups/loaders.dart';
 import 'package:yamaha_auth_module/utils/text_strings.dart';
+import 'package:yamaha_auth_module/views/home/home_page.dart';
 import 'package:yamaha_auth_module/views/login/login_page.dart';
 
 class LoginController extends GetxController {
@@ -43,8 +44,7 @@ class LoginController extends GetxController {
   Future<void> authenticateWithLocalAuth() async {
     final isAuthenticated = await LocalAuthService.instance.isAuthenticated();
     if (isAuthenticated) {
-      // return Get.offAll(() => const HomePage());
-      return SystemNavigator.pop(animated: true);
+      return Get.offAll(() => const HomePage());
     }
   }
 
