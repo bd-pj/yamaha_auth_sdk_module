@@ -14,7 +14,7 @@ import 'package:yamaha_auth_module/views/home/home_page.dart';
 import 'package:yamaha_auth_module/views/login/show_dialog.dart';
 
 class LoginService {
-  Future performLoginRequest(String email, String password) async {
+  static Future performLoginRequest(String email, String password) async {
     var loginUrl = Uri.parse(JPapiMainConstants.loginUrl);
     var request = http.MultipartRequest('POST', loginUrl);
     request.fields['login_id'] = email;
@@ -36,7 +36,8 @@ class LoginService {
       // Todo: Show Dialog if Device support local authentication
       if (await LocalAuthService.instance.isLocalAuthenticationAvailable()) {
         return JPShowDialog.showCustomDialog(
-          title: JPTexts.loginDialogTitle, message: JPTexts.loginDialogMessage);
+            title: JPTexts.loginDialogTitle,
+            message: JPTexts.loginDialogMessage);
       }
 
       return Get.offAll(() => const HomePage());
@@ -71,5 +72,17 @@ class LoginService {
 
     // The line below will cause the application to crash, make sure you comment it out before starting the application.
     // return SystemNavigator.pop(animated: true);
+  }
+
+  static activateLocalAuthentication() {
+    AuthenticationRepository.instance
+        .saveData(JPapiMainConstants.isLocalAuthEnabled, true);
+    return Get.offAll(() => const HomePage());
+  }
+
+  static deactivateLocalAuthentication() {
+    AuthenticationRepository.instance
+        .saveData(JPapiMainConstants.isLocalAuthEnabled, false);
+    return Get.offAll(() => const HomePage());
   }
 }

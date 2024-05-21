@@ -1,7 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yamaha_auth_module/controllers/login/login_controller.dart';
+import 'package:yamaha_auth_module/controllers/login/login_service.dart';
 import 'package:yamaha_auth_module/utils/app_colors.dart';
 import 'package:yamaha_auth_module/utils/text_strings.dart';
 
@@ -31,9 +31,7 @@ class JPShowDialog extends GetxController {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton(
-                onPressed: () {
-                  print("ok with that");
-                },
+                onPressed: () => LoginService.deactivateLocalAuthentication(),
                 child: Text(
                   JPTexts.no,
                   style: TextStyle(
@@ -42,9 +40,7 @@ class JPShowDialog extends GetxController {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  print("ok with that");
-                },
+                onPressed: () => LoginService.activateLocalAuthentication(),
                 style: TextButton.styleFrom(
                   backgroundColor: JPAppColors.color_1,
                   shape: RoundedRectangleBorder(

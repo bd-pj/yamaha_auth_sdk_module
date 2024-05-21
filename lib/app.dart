@@ -20,6 +20,9 @@ class _AppState extends State<App> {
       .readData(JPapiMainConstants.firstConnexionDateKey);
   final DateTime now = DateTime.now();
 
+  var isLocalAuthEnabled = AuthenticationRepository.instance
+      .readData(JPapiMainConstants.isLocalAuthEnabled);
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +51,8 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBindings(),
-      home: isFirstConnexion() ? const LoginPage() : const LocalAuthPage(),
+      // home: isFirstConnexion() ? const LoginPage() : const LocalAuthPage(),
+      home: const LoginPage(),
     );
   }
 }
