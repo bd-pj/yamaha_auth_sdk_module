@@ -7,10 +7,6 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
 
   void saveData(String key, dynamic value) async {
-    if (deviceStorage.read(key) == null) {
-      deviceStorage.writeIfNull(key, value);
-    }
-
     deviceStorage.write(key, value);
   }
 

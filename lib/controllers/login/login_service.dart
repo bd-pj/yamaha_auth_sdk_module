@@ -24,8 +24,9 @@ class LoginService {
 
     /* 
      * // Todo:
-     * Uncomment the following code to make the app work with the API 
+     * Comment the following code to make the app work without the API 
      */
+
     final response = await request.send();
 
     if (response.statusCode == 200 || response.statusCode == 201) {
@@ -33,7 +34,9 @@ class LoginService {
       var data = jsonDecode(responseBody);
       LoginResponseData loginResponse = LoginResponseData.fromJson(data);
 
-      // Todo: Show Dialog if Device support local authentication
+      /*  
+       * Show Dialog if device support local authentication
+       */
       if (await LocalAuthService.instance.isLocalAuthenticationAvailable()) {
         return JPShowDialog.showCustomDialog(
             title: JPTexts.loginDialogTitle,
@@ -42,6 +45,9 @@ class LoginService {
 
       return Get.offAll(() => const HomePage());
 
+      /* // Todo: 
+       * Do not delete this yet, it may be useful in the future.
+       */
       // final loginID = loginResponse.links.self.loginId;
       // final token = loginResponse.tokenAuth;
 
@@ -70,7 +76,9 @@ class LoginService {
 
     // return Get.offAll(() => const HomePage());
 
-    // The line below will cause the application to crash, make sure you comment it out before starting the application.
+    /* // Todo: 
+     * The line below will cause the application to crash, make sure you comment it out before starting the application.
+     */
     // return SystemNavigator.pop(animated: true);
   }
 

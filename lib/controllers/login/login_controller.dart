@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yamaha_auth_module/controllers/login/login_service.dart';
-import 'package:yamaha_auth_module/utils/helpers/api_main_constants.dart';
-import 'package:yamaha_auth_module/utils/helpers/authentication_repository.dart';
 import 'package:yamaha_auth_module/utils/helpers/local_auth_service.dart';
 import 'package:yamaha_auth_module/utils/helpers/network_manager.dart';
 import 'package:yamaha_auth_module/utils/popups/loaders.dart';
 import 'package:yamaha_auth_module/utils/text_strings.dart';
+import 'package:yamaha_auth_module/views/login/login_page.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -49,5 +48,7 @@ class LoginController extends GetxController {
     }
   }
 
- 
+  redirectToLoginPage() {
+    return Get.offAll(() => const LoginPage());
+  }
 }

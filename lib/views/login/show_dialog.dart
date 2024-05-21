@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yamaha_auth_module/controllers/login/login_controller.dart';
 import 'package:yamaha_auth_module/controllers/login/login_service.dart';
 import 'package:yamaha_auth_module/utils/app_colors.dart';
 import 'package:yamaha_auth_module/utils/text_strings.dart';
