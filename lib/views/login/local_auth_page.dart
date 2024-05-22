@@ -32,7 +32,9 @@ class LocalAuthPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const LocalAuthButton()
+
+              /// rename this by LocalAuthComponent
+              const LocalAuthButton(),
             ],
           ),
         ),

@@ -62,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(height: JPAppSizes.defaultSpace),
             const SizedBox(height: JPAppSizes.defaultSpace),
 
-            /// Sign In button
+            /// Login button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
