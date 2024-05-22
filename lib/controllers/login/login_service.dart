@@ -10,7 +10,8 @@ import 'package:yamaha_auth_module/utils/helpers/authentication_repository.dart'
 import 'package:yamaha_auth_module/utils/helpers/local_auth_service.dart';
 import 'package:yamaha_auth_module/utils/popups/loaders.dart';
 import 'package:yamaha_auth_module/utils/text_strings.dart';
-import 'package:yamaha_auth_module/views/home/home_page.dart';
+import 'package:yamaha_auth_module/views/login/local_auth_page.dart';
+import 'package:yamaha_auth_module/views/login/login_page.dart';
 import 'package:yamaha_auth_module/views/login/show_dialog.dart';
 
 class LoginService {
@@ -43,22 +44,22 @@ class LoginService {
             message: JPTexts.loginDialogMessage);
       }
 
-      return Get.offAll(() => const HomePage());
+      // return Get.offAll(() => const HomePage());
 
       /* // Todo: 
        * Do not delete this yet, it may be useful in the future.
        */
-      // final loginID = loginResponse.links.self.loginId;
-      // final token = loginResponse.tokenAuth;
+      final loginID = loginResponse.links.self.loginId;
+      final token = loginResponse.tokenAuth;
 
-      // AuthenticationRepository.instance
-      //     .saveData(JPapiMainConstants.lgoinID, loginID);
-      // AuthenticationRepository.instance
-      //     .saveData(JPapiMainConstants.tokenAuth, token);
+      AuthenticationRepository.instance
+          .saveData(JPapiMainConstants.lgoinID, loginID);
+      AuthenticationRepository.instance
+          .saveData(JPapiMainConstants.tokenAuth, token);
 
-      // AuthenticationRepository.instance.saveData(
-      //     JPapiMainConstants.firstConnexionDateKey,
-      //     firstConnexionDate.toString());
+      AuthenticationRepository.instance.saveData(
+          JPapiMainConstants.firstConnexionDateKey,
+          firstConnexionDate.toString());
 
       // return Get.offAll(() => const HomePage());
     } else {
@@ -79,18 +80,22 @@ class LoginService {
     /* // Todo: 
      * The line below will cause the application to crash, make sure you comment it out before starting the application.
      */
-    // return SystemNavigator.pop(animated: true);
+    return SystemNavigator.pop(animated: true);
   }
 
   static activateLocalAuthentication() {
     AuthenticationRepository.instance
         .saveData(JPapiMainConstants.isLocalAuthEnabled, true);
-    return Get.offAll(() => const HomePage());
+    // return Get.offAll(() => const HomePage());
+    Get.offAll(() => const LocalAuthPage());
+    return SystemNavigator.pop(animated: true);
   }
 
   static deactivateLocalAuthentication() {
     AuthenticationRepository.instance
         .saveData(JPapiMainConstants.isLocalAuthEnabled, false);
-    return Get.offAll(() => const HomePage());
+    // return Get.offAll(() => const HomePage());
+    Get.offAll(() => const LoginPage());
+    return SystemNavigator.pop(animated: true);
   }
 }
