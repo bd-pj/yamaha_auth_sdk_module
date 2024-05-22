@@ -19,14 +19,23 @@ class _AppState extends State<App> {
   final firstConnexionDateString = AuthenticationRepository.instance
       .readData(JPapiMainConstants.firstConnexionDateKey);
   final DateTime now = DateTime.now();
-
-  var isLocalAuthEnabled = AuthenticationRepository.instance
+  final isLocalAuthEnableData = AuthenticationRepository.instance
       .readData(JPapiMainConstants.isLocalAuthEnabled);
+
+  // var isLocalAuthEnabled = AuthenticationRepository.instance
+  //     .readData(JPapiMainConstants.isLocalAuthEnabled);
 
   @override
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
+  }
+
+  bool isLocalAuthEnabled() {
+    if (!isLocalAuthEnableData) {
+      return false;
+    }
+    return true;
   }
 
   bool isFirstConnexion() {
@@ -51,8 +60,10 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       initialBinding: GeneralBindings(),
-      // home: isFirstConnexion() ? const LoginPage() : const LocalAuthPage(),
-      home: const LoginPage(),
+      home: (isFirstConnexion() || !isLocalAuthEnabled())
+          ? const LoginPage()
+          : const LocalAuthPage(),
+      // home: const LoginPage(),
     );
   }
 }
