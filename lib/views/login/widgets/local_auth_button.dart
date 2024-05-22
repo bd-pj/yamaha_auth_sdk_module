@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yamaha_auth_module/controllers/login/login_controller.dart';
 import 'package:yamaha_auth_module/utils/app_sizes.dart';
 import 'package:yamaha_auth_module/utils/text_strings.dart';
@@ -12,6 +13,8 @@ class LocalAuthButton extends StatefulWidget {
 
 class _LocalAuthButtonState extends State<LocalAuthButton> {
   @override
+  final controller = Get.put(LoginController());
+  @override
   Widget build(BuildContext context) {
     return Form(
       child: Padding(
@@ -22,7 +25,7 @@ class _LocalAuthButtonState extends State<LocalAuthButton> {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () => LoginController.instance.authenticateWithLocalAuth(),
+                onPressed: () => controller.authenticateWithLocalAuth(),
                 child: const Text(JPTexts.useLocalAuth),
               ),
             ),
@@ -33,7 +36,7 @@ class _LocalAuthButtonState extends State<LocalAuthButton> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => LoginController.instance.redirectToLoginPage(),
+                onPressed: () => controller.redirectToLoginPage(),
                 child: const Text(JPTexts.logIn),
               ),
             ),
