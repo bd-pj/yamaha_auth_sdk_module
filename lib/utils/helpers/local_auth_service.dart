@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:yamaha_auth_module/utils/popups/loaders.dart';
+import 'package:yamaha_auth_module/utils/text_strings.dart';
 
 class LocalAuthService extends GetxController {
   static LocalAuthService get instance => Get.put(LocalAuthService());
@@ -13,16 +15,23 @@ class LocalAuthService extends GetxController {
   Future<bool> isAuthenticated() async {
     bool authenticated = false;
     try {
+      bool canCheckBiometrics = await _auth.canCheckBiometrics;
+      if (!canCheckBiometrics) {
+        return JPLoaders.errorSnackBar(
+            title: JPTexts.localAuthDisableErrorTitle,
+            message: JPTexts.localAuthDisableErrorMessage);
+      }
+
       _isAuthenticating.value = true;
       authenticated = await _auth.authenticate(
         localizedReason: 'Scan your fingerprint or face to authenticate',
         options: const AuthenticationOptions(
           stickyAuth: true,
+          biometricOnly: true,
         ),
       );
       _isAuthenticating.value = false;
     } on PlatformException catch (error) {
-      print(error);
       _isAuthenticating.value = false;
     }
 

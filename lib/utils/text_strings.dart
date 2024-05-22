@@ -23,6 +23,10 @@ class JPTexts {
   static const String loginErrorMessageTitle = "Unable to login";
   static const String loginErrorMessage = "Invalid user indentifier";
 
+  static const String localAuthDisableErrorTitle = "Unable to authenticate";
+  static const String localAuthDisableErrorMessage =
+      "Please enable local authentication in your settings";
+
   static const String appBarTitle = "Yamaha authenticator";
   static const String registrationTitle = "Register now!";
   static const String loginTitle = "Sign in!";
