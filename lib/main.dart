@@ -14,5 +14,16 @@ void main() async {
   // Await native splash
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  runApp(const App());
+  runApp(
+    MaterialApp(
+      home: Navigator(
+        onPopPage: ((route, result) => route.didPop(false)),
+        pages: const [
+          MaterialPage(
+            child: App(),
+          )
+        ],
+      ),
+    ),
+  );
 }
