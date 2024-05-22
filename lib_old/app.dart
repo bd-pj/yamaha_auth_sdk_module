@@ -38,16 +38,13 @@ class _AppState extends State<App> {
     if (firstConnexionDateString == null ||
         now.difference(DateTime.parse(firstConnexionDateString)).inMinutes >=
             JPapiMainConstants.tokenLifetime) {
-      print("true");
       return true;
     }
-    print("false");
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Building");
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
