@@ -32,7 +32,7 @@ class _AppState extends State<App> {
   }
 
   bool isLocalAuthEnabled() {
-    if (!isLocalAuthEnableData) {
+    if (isLocalAuthEnableData == null || !isLocalAuthEnableData) {
       return false;
     }
     return true;
